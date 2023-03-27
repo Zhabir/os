@@ -1,23 +1,24 @@
 #include <stdio.h>
 int main(int argc, char* argv[])
 {
-	char tmp[] = "file1.txt";
-	char tp[] = "file2.txt";
-	FILE* S1 = fopen(tmp, "r");
-	FILE* S2 = fopen(tp, "r");
-	FILE* S3 = fopen("file3.txt", "a+");
+	FILE* S1 = fopen(argv[1], "r");             //Открыли файлы, которые надо слить
+	FILE* S2 = fopen(argv[2], "r");
+	FILE* S3 = fopen("file.txt", "a+");         //Открыли файл в котором сольются два других файла, если файл не существует, то создаем его
 	char ch;
-	while (!feof(S1))
+	if(S1 != NULL && S2 != NULL)    //проверка на существование файлов
 	{
-		ch = getc(S1);
-		if (ch != EOF)fprintf(S3, "%c", ch);
+		while (!feof(S1))
+		{
+			ch = getc(S1);                    //считываем символ и записываем в выходной файл
+			if (ch != EOF)fprintf(S3, "%c", ch);
+		}
+		while (!feof(S2))
+		{
+			ch = getc(S2);
+			if (ch != EOF)fprintf(S3, "%c", ch);
+		}
 	}
-	while (!feof(S2))
-	{
-		ch = getc(S2);
-		if (ch != EOF)fprintf(S3, "%c", ch);
-	}
-	fclose(S1);
+	fclose(S1);      //закрываем все открытые файлы
 	fclose(S2);
 	fclose(S3);
 	return 0;
