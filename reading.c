@@ -19,7 +19,7 @@ void readFiles(int argc, const char* file1, const char* file2)
         }
         fclose(f1); //closing file1
 
-        //check end of file1
+        //check end of file2
         while (!feof(f2))
         {
             ch = getc(f2);  //read file by var
